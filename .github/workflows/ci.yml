@@ -39,5 +39,6 @@ jobs:
         with:
           push: true
           context: .
+          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           tags: wcjiang/zh-hans.react.dev:latest
