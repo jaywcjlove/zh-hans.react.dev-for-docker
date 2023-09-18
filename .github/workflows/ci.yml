@@ -12,8 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Checkout zh-hans.react.dev code
+        uses: actions/checkout@v2
         with:
           repository: reactjs/zh-hans.react.dev
+          path: 'app'
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -22,11 +26,14 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        working-directory: app
 
       - name: Build Next.js app
         run: npm run build
+        working-directory: app
 
       - run: ls -al
+      - run: cp Dockerfile ./app
     
       # Create Docker Image
       - uses: docker/setup-buildx-action@v2
@@ -41,6 +48,5 @@ jobs:
         with:
           push: true
           context: .
-          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: wcjiang/zh-hans.react.dev:latest
+          tags: ${{ secrets.DOCKER_USER }}/zh-hans.react.dev:latest
