@@ -32,6 +32,10 @@ jobs:
         run: npm run build
         working-directory: app
 
+      - name: Build Next.js app
+        run: ls -al
+        working-directory: app
+
       - run: ls -al
       - run: cp Dockerfile ./app
     
