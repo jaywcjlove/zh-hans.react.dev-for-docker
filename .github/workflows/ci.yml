@@ -32,9 +32,20 @@ jobs:
 
       - run: cp config/Dockerfile ./
 
-      - name: Copy .dockerignore file
-        run: cp -R config/.dockerignore ./
-        
+      - name: Compress uiw Example.
+        working-directory: zip
+        run: |
+          cat > .dockerignore << EOF
+          Dockerfile
+          .dockerignore
+          config
+          node_modules
+          npm-debug.log
+          README.md
+          .next
+          .git
+          EOF
+ 
       - run: ls -al
     
       # Create Docker Image
