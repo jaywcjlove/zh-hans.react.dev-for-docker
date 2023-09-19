@@ -25,20 +25,8 @@ jobs:
         with:
           node-version: 18
 
-      # - name: Install dependencies
-      #   run: yarn install
-      #   working-directory: app
-
-      # - name: Build Next.js app
-      #   run: npm run build
-      #   working-directory: app
-
       - run: node config/scripts.mjs
       - run: ls -al
-        # working-directory: app
-      
-      # - name: Install yarn
-      #   run: npm install -g yarn
 
       - run: cp config/Dockerfile ./
       - run: cp config/.dockerignore  ./
