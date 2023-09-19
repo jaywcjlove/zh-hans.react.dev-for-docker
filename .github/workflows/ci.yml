@@ -33,7 +33,7 @@ jobs:
       - run: cp config/Dockerfile ./
 
       - name: Copy .dockerignore file
-        run: cp 'config/.dockerignore' ./
+        run: cp -R config/.dockerignore ./
         
       - run: ls -al
     
