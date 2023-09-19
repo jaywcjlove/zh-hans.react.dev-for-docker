@@ -1,4 +1,4 @@
-FROM node:18 AS base
+FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -26,8 +26,8 @@ COPY --from=deps /app/node_modules ./node_modules
 # 复制项目文件到工作目录
 COPY . .
 
-# 安装 curl 工具
-RUN apt-get update && apt-get install -y curl
+# 安装 curl
+RUN apk update && apk add --no-cache curl
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
