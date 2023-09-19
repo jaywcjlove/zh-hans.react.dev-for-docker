@@ -67,6 +67,10 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Build manifests
+        run: |
+          echo "Re-tagging latest"
+          docker buildx imagetools create -t ${{ secrets.DOCKER_USER }}/zh-hans.react.dev:latest
         
       - name: Build and push image:latest
         uses: docker/build-push-action@v3
