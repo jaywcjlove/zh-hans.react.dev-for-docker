@@ -10,21 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          path: 'config'
-
       - name: Checkout zh-hans.react.dev code
         uses: actions/checkout@v4
         with:
           repository: reactjs/zh-hans.react.dev
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: 'config'
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+      - run: ls -al
       - run: node config/scripts.mjs
       - run: ls -al
 
