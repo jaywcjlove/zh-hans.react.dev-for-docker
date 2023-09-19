@@ -13,7 +13,7 @@ RUN yarn install
 COPY . .
 
 # 构建 Next.js 应用
-RUN npm run build
+# RUN npm run build
 
 # 设置环境变量
 ENV NODE_ENV production
