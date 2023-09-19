@@ -28,7 +28,10 @@ jobs:
       - run: ls -al
         working-directory: config
       - run: ls -al
-      - run: node config/scripts.mjs
+      
+      - run: node scripts.mjs
+        working-directory: config
+
       - run: ls -al
 
       - run: cp config/Dockerfile ./
