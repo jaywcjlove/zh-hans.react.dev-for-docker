@@ -64,5 +64,5 @@ jobs:
         with:
           push: true
           context: .
-          platforms: linux/amd64,linux/arm64
+          # platforms: linux/amd64,linux/arm64
           tags: ${{ secrets.DOCKER_USER }}/zh-hans.react.dev:latest
