@@ -30,7 +30,10 @@ jobs:
       - run: ls -al
 
       - run: cp config/Dockerfile ./
-      - run: cp config/.dockerignore\ ./
+
+      - name: Copy .dockerignore file
+        run: cp 'config/.dockerignore' ./
+        
       - run: ls -al
     
       # Create Docker Image
