@@ -26,6 +26,7 @@ jobs:
           node-version: 18
 
       - run: ls -al
+        working-directory: config
       - run: node config/scripts.mjs
       - run: ls -al
 
