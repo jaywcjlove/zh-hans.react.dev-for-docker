@@ -34,6 +34,9 @@ jobs:
 
       - run: ls -al
         working-directory: app
+      
+      - name: Install yarn
+        run: npm install -g yarn
 
       - run: ls -al
       - run: cp Dockerfile ./app
