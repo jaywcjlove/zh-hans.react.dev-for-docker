@@ -1,4 +1,4 @@
-zh-hans.react.dev-for-docker
+React 中文文档 for [Docker](https://hub.docker.com/r/wcjiang/zh-hans.react.dev)
 ===
 
 <!--rehype:ignore:start-->
@@ -8,7 +8,7 @@ zh-hans.react.dev-for-docker
 [![Docker Pulls](https://img.shields.io/docker/pulls/wcjiang/zh-hans.react.dev)](https://hub.docker.com/r/wcjiang/zh-hans.react.dev)
 <!--rehype:ignore:end-->
 
-新 [React 中文文档](https://zh-hans.react.dev/) docker 版本，方便本地部署看文档
+新 [React 中文文档](https://zh-hans.react.dev/) docker 版本，方便本地[部署](https://github.com/reactjs/zh-hans.react.dev)查看文档
 
 
 ```bash
