@@ -9,6 +9,9 @@ WORKDIR /app
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
+# Install Yarn
+RUN corepack enable && corepack prepare yarn@1.22.22 --activate
+
 RUN yarn install --ignore-engines --network-timeout 1000000
 # RUN yarn --frozen-lockfile
 # RUN \
