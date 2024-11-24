@@ -17,7 +17,10 @@ docker pull wcjiang/zh-hans.react.dev:latest
 ```
 
 ```bash
-docker run --name zh-hans.react.dev -p 60007:3000 --restart=always -d wcjiang/zh-hans.react.dev:latest
+docker run --name zh-hans.react.dev \
+  -p 60007:3000 \
+  --restart=always \
+  -d wcjiang/zh-hans.react.dev:latest
 ```
 
 ## License
