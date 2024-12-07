@@ -1,4 +1,4 @@
-React 中文文档 for [Docker](https://hub.docker.com/r/wcjiang/react.dev)
+React documentation for [Docker](https://hub.docker.com/r/wcjiang/react.dev)
 ===
 
 <!--rehype:ignore:start-->
@@ -9,7 +9,7 @@ React 中文文档 for [Docker](https://hub.docker.com/r/wcjiang/react.dev)
 [![GitHub last commit](https://img.shields.io/github/last-commit/jaywcjlove/zh-hans.react.dev-for-docker?style=flat&label=zh-hans.react.dev)](https://github.com/jaywcjlove/zh-hans.react.dev-for-docker/commits)
 <!--rehype:ignore:end-->
 
-新 [React 中文文档](https://zh-hans.react.dev/) docker 版本，方便本地[部署](https://github.com/reactjs/zh-hans.react.dev)查看文档
+The new [React documentation](https://github.com/reactjs/react.dev) supports Docker deployment, making it convenient for local viewing and learning.
 
 
 ```bash
