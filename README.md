@@ -1,11 +1,11 @@
-React 中文文档 for [Docker](https://hub.docker.com/r/wcjiang/zh-hans.react.dev)
+React 中文文档 for [Docker](https://hub.docker.com/r/wcjiang/react.dev)
 ===
 
 <!--rehype:ignore:start-->
 [![CI](https://github.com/jaywcjlove/zh-hans.react.dev-for-docker/actions/workflows/ci.yml/badge.svg)](https://github.com/jaywcjlove/zh-hans.react.dev-for-docker/actions/workflows/ci.yml)
-[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/wcjiang/zh-hans.react.dev)](https://hub.docker.com/r/wcjiang/zh-hans.react.dev)
-[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/wcjiang/zh-hans.react.dev)](https://hub.docker.com/r/wcjiang/zh-hans.react.dev)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wcjiang/zh-hans.react.dev)](https://hub.docker.com/r/wcjiang/zh-hans.react.dev)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/wcjiang/react.dev)](https://hub.docker.com/r/wcjiang/react.dev)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/wcjiang/react.dev)](https://hub.docker.com/r/wcjiang/react.dev)
+[![Docker Pulls](https://img.shields.io/docker/pulls/wcjiang/react.dev)](https://hub.docker.com/r/wcjiang/react.dev)
 [![GitHub last commit](https://img.shields.io/github/last-commit/jaywcjlove/zh-hans.react.dev-for-docker?style=flat&label=zh-hans.react.dev)](https://github.com/jaywcjlove/zh-hans.react.dev-for-docker/commits)
 <!--rehype:ignore:end-->
 
@@ -13,14 +13,14 @@ React 中文文档 for [Docker](https://hub.docker.com/r/wcjiang/zh-hans.react.d
 
 
 ```bash
-docker pull wcjiang/zh-hans.react.dev:latest
+docker pull wcjiang/react.dev:latest
 ```
 
 ```bash
 docker run --name zh-hans.react.dev \
   -p 60007:3000 \
   --restart=always \
-  -d wcjiang/zh-hans.react.dev:latest
+  -d wcjiang/react.dev:latest
 ```
 
 ## License

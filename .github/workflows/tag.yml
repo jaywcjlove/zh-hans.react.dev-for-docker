@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout zh-hans.react.dev code
+      - name: Checkout react.dev code
         uses: actions/checkout@v4
         with:
-          repository: reactjs/zh-hans.react.dev
+          repository: reactjs/react.dev
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,6 +75,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           tags: |
-            ${{ secrets.DOCKER_USER }}/zh-hans.react.dev:latest
-            ${{ secrets.DOCKER_USER }}/zh-hans.react.dev:${{ github.ref_name }}
+            ${{ secrets.DOCKER_USER }}/react.dev:latest
+            ${{ secrets.DOCKER_USER }}/react.dev:${{ github.ref_name }}
             
