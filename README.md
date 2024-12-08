@@ -9,12 +9,17 @@ React 中文文档 for [Docker](https://hub.docker.com/r/wcjiang/zh-hans.react.d
 [![GitHub last commit](https://img.shields.io/github/last-commit/jaywcjlove/zh-hans.react.dev-for-docker?style=flat&label=zh-hans.react.dev)](https://github.com/jaywcjlove/zh-hans.react.dev-for-docker/commits)
 <!--rehype:ignore:end-->
 
-新 [React 中文文档](https://zh-hans.react.dev/) docker 版本，方便本地[部署](https://github.com/reactjs/zh-hans.react.dev)查看文档
+新 [React 中文文档](https://zh-hans.react.dev/) docker 版本，方便本地[部署](https://github.com/reactjs/zh-hans.react.dev)查看文档。
 
+## 使用方法
+
+### 拉取镜像
 
 ```bash
 docker pull wcjiang/zh-hans.react.dev:latest
 ```
+
+### 运行容器
 
 ```bash
 docker run --name zh-hans.react.dev \
