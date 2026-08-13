@@ -6,12 +6,32 @@ on:
       - v*
     paths-ignore:
       - '**/*.md'
+  workflow_dispatch:
+
+env:
+  REGISTRY_IMAGE: ${{ secrets.DOCKER_USER }}/zh-hans.react.dev
 
 jobs:
+  # Next.js docs build under QEMU OOMs GitHub-hosted runners.
+  # Build each arch natively, then merge into a multi-arch manifest.
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 90
 
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> "$GITHUB_ENV"
+
       - name: Checkout zh-hans.react.dev code
         uses: actions/checkout@v7
         with:
@@ -28,14 +48,8 @@ jobs:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
-      - run: ls -al
-        working-directory: config
-      - run: ls -al
-      
       - run: node scripts.mjs
         working-directory: config
-
-      - run: ls -al
 
       - run: cp config/Dockerfile ./
 
@@ -52,29 +66,70 @@ jobs:
           .git
           EOF
 
-      - name: Setup QEMU
-        uses: docker/setup-qemu-action@v4
-        with:
-          image: tonistiigi/binfmt:latest
-          platforms: all
-
-      # Create Docker Image
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push image:latest
-        uses: docker/build-push-action@v6
+      - name: Build and push by digest
+        id: build
+        uses: docker/build-push-action@v7
         with:
-          push: true
           context: .
-          platforms: linux/amd64,linux/arm64
-          tags: |
-            ${{ secrets.DOCKER_USER }}/zh-hans.react.dev:latest
-            ${{ secrets.DOCKER_USER }}/zh-hans.react.dev:${{ github.ref_name }}
-            
+          platforms: ${{ matrix.platform }}
+          provenance: false
+          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          cache-from: type=gha,scope=${{ matrix.platform }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
+
+      - name: Export digest
+        run: |
+          mkdir -p ${{ runner.temp }}/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "${{ runner.temp }}/digests/${digest#sha256:}"
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ env.PLATFORM_PAIR }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  merge:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digests-*
+          merge-multiple: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create manifest list and push
+        working-directory: ${{ runner.temp }}/digests
+        run: |
+          image="${{ env.REGISTRY_IMAGE }}"
+          tags=(-t "${image}:latest")
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            tags+=(-t "${image}:${GITHUB_REF_NAME}")
+          fi
+          docker buildx imagetools create "${tags[@]}" $(printf "${image}@sha256:%s " *)
+
+      - name: Inspect image
+        run: docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:latest
