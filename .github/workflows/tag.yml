@@ -13,17 +13,17 @@ jobs:
 
     steps:
       - name: Checkout zh-hans.react.dev code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: reactjs/zh-hans.react.dev
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: 'config'
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
