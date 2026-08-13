@@ -1,4 +1,7 @@
 FROM node:22-alpine AS base
+# Prevent husky / postinstall from running in any stage.
+ENV CI=true
+ENV HUSKY=0
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -8,11 +11,15 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+# `link:eslint-local-rules` + postinstall `yarn --cwd eslint-local-rules install`.
+# Without this folder Yarn walks up to /app and re-runs install forever.
+COPY eslint-local-rules ./eslint-local-rules
 
 # Install Yarn
 RUN corepack enable && corepack prepare yarn@1.22.22 --activate
 
-RUN yarn install --ignore-engines --network-timeout 1000000
+# Skip husky / nested yarn postinstall; they are not required to build the site.
+RUN yarn install --ignore-engines --network-timeout 1000000 --ignore-scripts
 # RUN yarn --frozen-lockfile
 # RUN \
 #   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
